@@ -1,0 +1,8 @@
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Install Apache, MySQL, PHP
+      apt:
+        name: ['apache2', 'mysql-server', 'php']
+        state: present
+        update_cache: yes
