@@ -1,8 +1,21 @@
-- hosts: webservers
+---
+- name: Webserver LAMP ( In Linux , Apache2, Mysql , Php) setup
+  hosts: webserver
   become: yes
   tasks:
-    - name: Install Apache, MySQL, PHP
+    - name: Install apache2,mysql,php
       apt:
-        name: ['apache2', 'mysql-server', 'php']
+        name:
+          - apache2
+          - mysql-server
+          - php
         state: present
         update_cache: yes
+    - name: Start and enable Apache/MySQL
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - apache2
+        - mysql
